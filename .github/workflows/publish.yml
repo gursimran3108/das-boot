@@ -42,9 +42,6 @@ jobs:
           asset_name: ${{ steps.get-extension-name.outputs.extension-name }}
           asset_content_type: application/gzip
       - name: PyPi Upload
-        env:
-          TWINE_USERNAME: ${{secrets.GITHUB_TOKEN}}
-          TWINE_PASSWORD: ${{secrets.GITHUB_TOKEN}}
-        - if: matrix.dockerfile == '3-38'
-            run: |
-              echo "hello"
+        if: matrix.dockerfile == '3-38'
+        run: |
+          echo "hello"
