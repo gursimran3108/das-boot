@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         python-version: [3.8]
-        dockerfile: [3-38, 3-38-slim]
+        dockerfile: [3-38, 3-38-slim, 3-39]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
