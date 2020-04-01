@@ -13,18 +13,14 @@ jobs:
     strategy:
       matrix:
         python-version: [3.8]
-        dockerfile: [3-38, 3-37, 3-39]
+        dockerfile: [3-38, 3-37]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Get extension name
         id: get-extension-name
         run: |
-          if [ ${{matrix.dockerfile}} == "3-38" ]; then
-                echo ::set-output name=extension-name::$(basename *.gz)
-          else
-                echo ::set-output name=extension-name::test.gz
-          fi
+          echo ::set-output name=extension-name::$(basename *.gz)
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -45,3 +41,10 @@ jobs:
           asset_path: ${{ steps.get-extension-name.outputs.extension-name }} 
           asset_name: ${{ steps.get-extension-name.outputs.extension-name }}
           asset_content_type: application/gzip
+      - name: PyPi Upload
+        env:
+          TWINE_USERNAME: ${{secrets.GITHUB_TOKEN}}
+          TWINE_PASSWORD: ${{secrets.GITHUB_TOKEN}}
+        if: matrix.dockerfile == '3-38'
+          run: |
+            echo "hello"
