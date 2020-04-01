@@ -13,9 +13,12 @@ jobs:
     strategy:
       matrix:
         python-version: [3.8]
-        dockerfile: [3-38, 3-37]
+        dockerfile: [3-38, 3-37, 3-38-slim]
     steps:
       - name: PyPi Upload
+        env:
+          TWINE_USERNAME: ${{ secrets.dockerfile }}
+          TWINE_PASSWORD: ${{ secrets.dockerfile }}
         if: matrix.dockerfile == '3-38'
         run: |
           echo "hello"
