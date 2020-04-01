@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         python-version: [3.8]
-        dockerfile: [3-38, 3-38-slim, 3-39]
+        dockerfile: [3-38, 3-37, 3-39]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -22,7 +22,7 @@ jobs:
         run: |
           echo ::set-output name=extension-name::$(basename *.gz)
       - name: Create Release
-        if: ${{matrix.dockerfile}} == "3-38"
+        if: matrix.dockerfile == "3-38"
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -33,7 +33,7 @@ jobs:
           draft: false
           prerelease: false
       - name: Upload Release Asset
-        if: ${{matrix.dockerfile}} == "3-38"
+        if: matrix.dockerfile == "3-38"
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
         env:
