@@ -22,8 +22,8 @@ jobs:
         run: |
           echo ::set-output name=extension-name::$(basename *.gz)
       - name: Create Release
+        if: ${{matrix.dockerfile}} == "3-38"
         id: create_release
-        if : ${{matrix.dockerfile}} == "3-38"
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
